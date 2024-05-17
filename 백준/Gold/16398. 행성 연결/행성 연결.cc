@@ -62,10 +62,6 @@ int main() {
     cin.tie(NULL); cout.tie(NULL);
 
     Input();
-    if (N == 1) {
-        cout << 0 << '\n';
-        return 0;
-    }
     fc();
     return 0;
 }
