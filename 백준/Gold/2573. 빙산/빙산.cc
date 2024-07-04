@@ -5,12 +5,12 @@
 
 using namespace std;
 
-int N, M, ans;
+int N, M;
 int MAP[301][301];
 int temp[301][301];
 bool visited[301][301];
 int dx[] = {1, -1, 0, 0};
-int dy[] = {0, 0, 1, -1};
+int dy[] = {0, 0, 1, - 1};
 
 void bfs(int a, int b) {
     queue<pair<int, int>> q;
@@ -41,11 +41,12 @@ void meltIce() {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
             if (MAP[i][j] == 0) continue;
-            int cnt = 0;    // 주변 물의 수
+            int cnt = 0;
             for (int k = 0; k < 4; k++) {
                 int nx = i + dx[k];
                 int ny = j + dy[k];
-                if (nx < 0 || ny < 0 || nx >= N || ny >= M) continue;
+
+                if (nx < 0 || nx >= N || ny < 0 || ny >= M) continue;
 
                 if (MAP[nx][ny] == 0) {
                     cnt++;
@@ -55,7 +56,6 @@ void meltIce() {
             if (result > 0) temp[i][j] = result;
         }
     }
-
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
             MAP[i][j] = temp[i][j];
@@ -79,7 +79,7 @@ int main() {
         int cnt = 0;
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
-                if (!visited[i][j] && MAP[i][j] != 0) {
+                if (MAP[i][j] != 0 && !visited[i][j]) {
                     bfs(i, j);
                     cnt++;
                 }
