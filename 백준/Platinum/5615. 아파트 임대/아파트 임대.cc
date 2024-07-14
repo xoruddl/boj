@@ -1,47 +1,57 @@
 #include <iostream>
 #include <vector>
 
-#define ull unsigned long long
 using namespace std;
 
-ull Base[3] = {2, 7, 61};
+typedef unsigned long long ull;
 
-ull Power(ull x, ull y, ull mod) { // ret = (x^y)%mod
-    ull ret = 1;
-    x %= mod;
-    while(y) {
-        if(y%2 == 1) ret = (ret*x)%mod;
-        y /= 2;
-        x = (x*x)%mod;
+int N, ans;
+vector<ull> apt;
+ull p[3] = {2, 7, 61};
+
+ull powerMod(ull a, ull b, ull mod) {
+    ull result = 1;
+    a %= mod;
+    while (b) {
+        if (b % 2 == 1) {
+            result = (result * a) % mod;
+        }
+        b /= 2;
+        a = (a * a) % mod;
     }
-    return ret;
+    return result;
 }
 
-bool isPrime(ull n, ull a) {
-    if(a%n == 0) return true;
-    ull k = n-1;
-    while(1) {
-        ull temp = Power(a, k, n);
-        if(temp == n-1) return true;
-        if(k%2 == 1) return (temp == 1 || temp == n-1);
+bool miller(ull n, ull b) {
+    if (b % n == 0) return true;
+
+    ull k = n - 1;
+    while (1) {
+        ull temp = powerMod(b, k, n);
+        if (temp == n - 1) return true;
+        if (k % 2 == 1) return (temp == 1 || temp == n - 1);
         k /= 2;
     }
 }
 
-int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
-
-    int N, compositeN = 0;
-    cin >> N;
-    for(int i=0; i<N; i++) {
-        ull A;
-        cin >> A;
-        for(int j=0; j<3; j++)
-            if(!isPrime(A*2+1, Base[j])) {
-                compositeN++;
-                break;
-            }
+bool isPrime(ull n) {
+    for (int i = 0; i < 3; i++) {
+        if (!miller(n, p[i])) return false;
     }
-    cout << N - compositeN;
+    return true;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0); cout.tie(0);
+
+    cin >> N;
+    int cnt = 0;
+    for (int i = 0; i < N; i++) {
+        ull a; cin >> a;
+        if (isPrime(2 * a + 1)) ans++;
+    }
+
+    cout << ans;
+    return 0;
 }
