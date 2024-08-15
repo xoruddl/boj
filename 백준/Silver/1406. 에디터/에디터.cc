@@ -3,43 +3,35 @@
 
 using namespace std;
 
-int main()
-{
+int main() {
+    ios::sync_with_stdio(0); cin.tie(0);
+
     int n;
-    string s;   //문자열
+    string s;
     cin >> s;
-    cin >> n;   //명령어 반복수
-    list <char> l(s.begin(), s.end());
-    //list <char>::iterator now = l.end();
-    auto now = l.end();
-    
-    while (n--){
-        char tmp;
-        cin >> tmp;
-        
-        if (tmp == 'L'){
-            if (now != l.begin()){
-                now--;
+    cin >> n;
+
+    list<char> l;
+    for (auto c : s) l.push_back(c);
+    auto cursor = l.end();
+
+    while (n--) {
+        char op;
+        cin >> op;
+        if (op == 'P') {
+            char add;
+            cin >> add;
+            l.insert(cursor, add);
+        } else if (op == 'L') {
+            if (cursor != l.begin()) cursor--;
+        } else if (op == 'D') {
+            if (cursor != l.end()) cursor++;
+        } else {
+            if (cursor != l.begin()) {
+                cursor--;
+                cursor = l.erase(cursor);
             }
-        }
-        else if (tmp == 'D'){
-            if (now != l.end()){
-                now++;
-            }
-        }
-        else if (tmp == 'B'){
-            if (now != l.begin()){
-                now = l.erase(--now);
-            }
-        }
-        else if (tmp == 'P'){
-            char c;
-            cin >> c;
-            l.insert(now, c);
         }
     }
-    for ( auto it = l.begin(); it != l.end(); it++){
-        cout << *it;
-    }
-    return 0;
+    for (auto c : l) cout << c;
 }
