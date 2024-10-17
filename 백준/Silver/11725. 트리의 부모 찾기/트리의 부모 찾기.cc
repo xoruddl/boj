@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
 
 using namespace std;
 
@@ -26,7 +25,6 @@ int main() {
         adj[u].push_back(v);
         adj[v].push_back(u);
     }
-
     dfs(1);
     for (int i = 2; i <= n; i++) {
         cout << p[i] << '\n';
