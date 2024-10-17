@@ -27,7 +27,7 @@ int main() {
     long double ans;
 
     int cnt = 0;
-    while (left <= right) {
+    while (left < right) {
         if (cnt == 150) break;
 
         double mid = (left + right) / 2;
