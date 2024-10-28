@@ -7,7 +7,7 @@ int p[1000003];
 
 int find(int x) {
     if (x == p[x]) return x;
-    else return find(p[x]);
+    else return p[x] = find(p[x]);
 }
 
 void uni(int x, int y) {
