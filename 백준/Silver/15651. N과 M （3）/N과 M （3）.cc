@@ -17,11 +17,9 @@ void fc(int cnt) {
     }
 
     for (int i = 1; i <= N; i++) {
-            visited[i] = true;
             v.push_back(i);
             fc(cnt + 1);
             v.pop_back();
-            visited[i] = false;
     }
 }
 
