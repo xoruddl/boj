@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <map>
+#include <set>
 
 using namespace std;
 
@@ -40,15 +40,15 @@ int main() {
         }
     }
 
-    map<int, int> mp;
+    set<int> s;
     for (int i = 0; i < M; i++) {
         if (e[i] != 0) {
-            mp[e[i]] = 1;
+            s.insert(e[i]);
         }
     }
 
-    cout << mp.size() << '\n';
-    for (auto p : mp) {
-        cout << p.first << '\n';
+    cout << s.size() << '\n';
+    for (auto p : s) {
+        cout << p << '\n';
     }
 }
