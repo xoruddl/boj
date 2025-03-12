@@ -3,24 +3,20 @@
 using namespace std;
 
 int N;
-int dp[46];
 
-int Fibo(int n) {
-    dp[0] = 0;
-    dp[1] = 1;
-    dp[2] = 1;
-    for (int i = 3; i <= n; i++) {
-        dp[i] = dp[i - 1] + dp[i - 2];
+int fibo(int n) {
+    int f[100];
+    f[0] = 0;
+    f[1] = 1;
+    for (int i = 2; i <= n; i++) {
+        f[i] = f[i - 1] + f[i - 2];
     }
-    return dp[n];
+    return f[n];
 }
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
+    ios::sync_with_stdio(0); cin.tie(0);
 
     cin >> N;
-
-    cout << Fibo(N) << '\n';
-    return 0;
+    cout << fibo(N);
 }
