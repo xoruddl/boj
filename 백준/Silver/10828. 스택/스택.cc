@@ -3,29 +3,24 @@
 
 using namespace std;
 
+int n, num, result;
+stack<int> s;
+
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    
-    int n;
+    ios::sync_with_stdio(0);cin.tie(0);
+
     cin >> n;
-    stack <int> s;
-    int num;
-    int result = 0;
-    
-    
+
     for (int i = 0; i < n; i++){
         string command;
         cin >> command;
-        
+
         //push
         if (command == "push"){
             cin >> num;
             s.push(num);
         }
-        
         //pop
         else if (command == "pop"){
             if (s.size() == 0){
@@ -38,12 +33,10 @@ int main()
                 s.pop();
             }
         }
-        
         //size
         else if (command == "size"){
             cout << s.size() << "\n";
         }
-        
         //empty
         else if (command == "empty"){
             if (s.size() == 0){
@@ -53,7 +46,6 @@ int main()
                 cout << 0 << "\n";
             }
         }
-        
         //top
         else if (command == "top"){
             if (s.size() == 0){
@@ -63,8 +55,6 @@ int main()
                 cout << s.top() << "\n";
             }
         }
-        
     }
-    
     return 0;
 }
