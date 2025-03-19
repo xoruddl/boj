@@ -1,29 +1,31 @@
 #include <iostream>
 #include <cmath>
-#include <algorithm>
+#include <vector>
 
 using namespace std;
 
-int a, b;
-int ans = 987654321;
-int sum;
-int cnt;
+int M, N;
+vector<int> v;
 
 int main() {
-    cin >> a >> b;
+    ios::sync_with_stdio(0); cin.tie(0);
 
-    for (int i = 1; i <= sqrt(max(a, b)); i++) {
-        if (i * i <= max(a, b) && i * i >= min(a, b)) {
-            if (ans >= i * i) {
-                ans = i * i;
-            }
-            sum += i * i;
-            cnt++;
+    cin >> M >> N;
+    
+    for (int i = sqrt(M); i <= sqrt(N); i++) {
+        if (i * i >= M && i * i <= N) {
+            v.push_back(i * i);
         }
     }
-    if (cnt == 0) cout << -1 << '\n';
-    else {
-        cout << sum << '\n' << ans << '\n';
+    int sum = 0;
+    for (auto n : v) {
+        sum += n;
     }
-    return 0;
+
+    if (v.size() == 0) {
+        cout << -1;
+    }
+    else {
+        cout << sum << '\n' << v[0];
+    }
 }
