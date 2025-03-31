@@ -4,8 +4,8 @@ using namespace std;
 
 typedef long long ll;
 
-ll dp[103];
 int T;
+ll dp[103];
 
 void makeDP() {
     dp[1] = 1;
@@ -14,7 +14,7 @@ void makeDP() {
     dp[4] = 2;
     dp[5] = 2;
     for (int i = 6; i <= 100; i++) {
-        dp[i] = dp[i - 1] + dp[i - 5];
+        dp[i] = dp[i -1] + dp[i - 5];
     }
 }
 
@@ -24,7 +24,7 @@ int main() {
     cin >> T;
     makeDP();
 
-    while (T--) {
+    while(T--) {
         int N;
         cin >> N;
         cout << dp[N] << '\n';
