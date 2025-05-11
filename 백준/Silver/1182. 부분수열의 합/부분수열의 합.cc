@@ -4,32 +4,18 @@
 using namespace std;
 
 int N, S;
-vector<int> v, target;
-int ans, sum;
-bool visited[22];
+vector<int> v;
+int ans;
 
-void fc(int c, int idx, int targetSize) {
-    if (c == targetSize) {
-//        for (auto a : target) {
-//            cout << a << " ";
-//        }
-//        cout << '\n';
+void fc(int cur, int sum) {
+    if (cur == N) {
         if (sum == S) {
             ans++;
         }
         return;
     }
-    for (int i = idx; i < N; i++) {
-        if (!visited[i]) {
-            visited[i] = 1;
-            sum += v[i];
-            target.push_back(v[i]);
-            fc(c + 1, i + 1,targetSize);
-            sum -= v[i];
-            visited[i] = 0;
-            target.pop_back();
-        }
-    }
+    fc(cur + 1, sum);
+    fc(cur + 1, sum + v[cur]);
 }
 
 int main() {
@@ -40,10 +26,7 @@ int main() {
         int a; cin >> a;
         v.push_back(a);
     }
-
-    for (int i = 1; i <= N; i++) {
-        fc(0, 0, i);
-    }
-//    fc(0, 0, 2);
+    fc(0, 0);
+    if (S == 0) ans--;
     cout << ans;
 }
