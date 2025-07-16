@@ -1,40 +1,30 @@
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
-int N, ans;
+int N;
 
 int main() {
     ios::sync_with_stdio(0); cin.tie(0);
 
     cin >> N;
+    int ans = 1;
+    int start = 1, end = 1;
+    int sum = 1;
 
-    int start = 0, end = 0;
-    int sum = 0;
-
-    while (1) {
-        if (start == end) {
-            sum = start;
-            if (sum == N) {
-                ans++;
-            }
+    while (end != N) {
+        if (sum == N) {
+            ans++;
             end++;
+            sum += end;
+        } else if (sum > N) {
+            sum -= start;
+            start++;
         } else {
-            sum = (start + end) * (end - start + 1) / 2;
-            if (sum > N) {
-                start++;
-            } else if (sum < N) {
-                end++;
-            } else {
-                ans++;
-                end++;
-            }
-        }
-
-        if (end > N) {
-            break;
+            end++;
+            sum += end;
         }
     }
+
     cout << ans;
 }
