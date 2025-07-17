@@ -1,49 +1,44 @@
 #include <iostream>
-#include <algorithm>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
-int N;
-int ans;
+int N, ans;
 vector<int> v;
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
+    ios::sync_with_stdio(0); cin.tie(0);
 
     cin >> N;
     for (int i = 0; i < N; i++) {
-        int a;
-        cin >> a;
+        int a; cin >> a;
         v.push_back(a);
     }
+
     sort(v.begin(), v.end());
 
-    for (int i = 0; i < v.size(); i++) {
-        int left = 0;
-        int right = v.size() - 1;
+    for (int idx = 0; idx < N; idx++) {
+        int start = 0, end = N - 1;
 
-        if (i == 0) left++;
-        else if (i == v.size() - 1) right--;
+        while (start < end) {
+            int sum = v[start] + v[end];
 
-        int target = v[i];
-
-        while (left < right) {
-            if (v[left] + v[right] == target) {
-                ans++;
-                break;
-            }
-            else if (v[left] + v[right] > target) {
-                right--;
-                if (v[right] == target) right--;
-            }
-            else if (v[left] + v[right] < target) {
-                left++;
-                if (v[left] == target) left++;
+            if (sum > v[idx]) {
+                end--;
+            } else if (sum < v[idx]) {
+                start++;
+            } else {
+                if (start != idx && end != idx) {
+                    ans++;
+                    break;
+                } else if (start == idx) {
+                    start++;
+                } else {
+                    end--;
+                }
             }
         }
     }
-    cout << ans << '\n';
-    return 0;
+    cout << ans;
 }
