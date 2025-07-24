@@ -3,25 +3,26 @@
 
 using namespace std;
 
+int n;
+stack<int> st;
+string ans;
+
 int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
+    ios::sync_with_stdio(0); cin.tie(0);
 
-    int n;
     cin >> n;
-    stack<int> st;
-    int cnt = 1;
-    string ans;
 
-    while (n--) {
-        int t;
-        cin >> t;
-        while (cnt <= t) {
-            st.push(cnt++);
+    int cnt = 1;
+    for (int i = 0; i < n; i++) {
+        int a;
+        cin >> a;
+
+        while (cnt <= a) {
+            st.push(cnt);
+            cnt++;
             ans += "+\n";
         }
-        if (st.top() != t) {
+        if (st.top() != a) {
             cout << "NO\n";
             return 0;
         }
