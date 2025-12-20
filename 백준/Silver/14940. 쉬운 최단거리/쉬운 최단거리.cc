@@ -29,26 +29,27 @@ void fc(int y, int x) {
             int ny = cy + dy[i];
             int nx = cx + dx[i];
 
-//            if (ny < 0 || ny >= n || nx < 0 || nx >= m) {
-//                continue;
-//            }
-//            if (visited[ny][nx]) {
-//                continue;
-//            }
-//            if (v[ny][nx] == 0) {
-//                continue;
-//            }
-//
-//            ansMAP[ny][nx] = ansMAP[cy][cx] + 1;
-//            q.push({ny, nx});
-
-            if (!visited[ny][nx] && ny >= 0 && ny < n && nx >= 0 && nx < m) {
-                if (v[ny][nx] != 0) {
-                    ansMAP[ny][nx] = ansMAP[cy][cx] + 1;
-                    visited[ny][nx] = true;
-                    q.push({ny, nx});
-                }
+            if (ny < 0 || ny >= n || nx < 0 || nx >= m) {
+                continue;
             }
+            if (visited[ny][nx]) {
+                continue;
+            }
+            if (v[ny][nx] == 0) {
+                continue;
+            }
+
+            ansMAP[ny][nx] = ansMAP[cy][cx] + 1;
+            visited[ny][nx] = true;
+            q.push({ny, nx});
+
+//            if (!visited[ny][nx] && ny >= 0 && ny < n && nx >= 0 && nx < m) {
+//                if (v[ny][nx] != 0) {
+//                    ansMAP[ny][nx] = ansMAP[cy][cx] + 1;
+//                    visited[ny][nx] = true;
+//                    q.push({ny, nx});
+//                }
+//            }
         }
     }
 
@@ -80,15 +81,6 @@ int main() {
             }
         }
     }
-
-//    for (int i = 0; i < n; i++) {
-//        for (int j = 0; j < m; j++) {
-//            cout << v[i][j] << " ";
-//        }
-//        cout << '\n';
-//    }
-
-//    cout << si << " " << sj;
 
     fc(si, sj);
 
