@@ -1,7 +1,4 @@
 def solution(arr):
-    if (len(arr) == 1):
-        return [-1]
-    
-    target = min(arr)
-    
-    return [v for v in arr if v != target]
+    arr.remove(min(arr))
+    # print(arr)
+    return arr if len(arr) > 0 else [-1]
