@@ -1,10 +1,10 @@
 # [level 1] 3진법 뒤집기 - 68935 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/68935) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/68935?language=cpp) 
 
 ### 성능 요약
 
-메모리: 11.2 MB, 시간: 0.01 ms
+메모리: 4.75 MB, 시간: 0.02 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2026년 07월 10일 13:54:18
+2026년 07월 10일 14:00:28
 
 ### 문제 설명
 
