@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <sstream>
 #include <cstring>
 #include <map>
 
@@ -15,19 +16,17 @@ vector<int> solution(string today, vector<string> terms, vector<string> privacie
     int todayYear = stoi(today.substr(0, 4));
     int todayMonth = stoi(today.substr(5, 2));
     int todayDay = stoi(today.substr(8, 2));
+    int todayNum = todayYear * 12 * 28 + (todayMonth - 1) * 28 + todayDay;
     
     // terms를 반복하면서 어떤 유형인지 파악하고 privacies의 해당 유형 날짜에 유효기간을 더해서 today와 비교한다.
     
     // terms 파싱해서 map으로 저장
     for (int i = 0; i < terms.size(); i++) {
-        char f = terms[i][0];
-        string d1 = "";
-        for (int j = 2; j < terms[i].size(); j++) {
-            d1 += terms[i][j];
-        }
-        // cout << d1 << '\n';
-        int d2 = stoi(d1);
-        Terms[f] = d2;
+        stringstream ss(terms[i]);
+        char f;
+        int num;
+        ss >> f >> num;
+        Terms[f] = num;
     }
     
     // for (auto p: Terms){
@@ -42,35 +41,13 @@ vector<int> solution(string today, vector<string> terms, vector<string> privacie
         int day = stoi(curLine.substr(8, 2));
         
         int addMonth = Terms[type];
-        day = day - 1;
         month = month + addMonth;
         
-        // 날짜 범위에 맞게 변경 작업
-        if (day == 0){
-            day = 28;
-            month -= 1;
-        }
-        // 유효 기간이 24개월도 넘을 수 있음
-        if (month > 12){
-            while (month > 12){
-                year += 1;
-                month -= 12;
-            }
-        }
+        int temp = 0;
+        temp = year * 12 * 28 + (month - 1) * 28 + day - 1;
         
-        cout << year << " " << month << " " << day << '\n';
-        
-        // 최종 비교
-        if (todayYear > year){
+        if (todayNum > temp){
             answer.push_back(i + 1);
-        } else if (todayYear == year){
-            if (todayMonth > month){
-                answer.push_back(i + 1);
-            } else if (todayMonth == month){
-                if (todayDay > day){
-                    answer.push_back(i + 1);
-                }
-            }
         }
     }
     
