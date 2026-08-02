@@ -1,11 +1,14 @@
 from collections import deque
 
 def solution(m, n, h, w, drops):
+    answer = []
     MAX = 987654321
     table = [[MAX] * n for _ in range(m)]
-
-    for idx, (y, x) in enumerate(drops):
-        table[y][x] = idx + 1
+    
+    for i in range(len(drops)):
+        y = drops[i][0]
+        x = drops[i][1]
+        table[y][x] = i + 1
 
     row_min = [[0] * (n - w + 1) for _ in range(m)]
     for i in range(m):
@@ -18,9 +21,8 @@ def solution(m, n, h, w, drops):
                 dq.popleft()
             if (j >= w - 1):
                 row_min[i][j - w + 1] = table[i][dq[0]]
-                
+    
     # print(row_min)
-
     result = [[0] * (n - w + 1) for _ in range(m - h + 1)]
     for j in range(n - w + 1):
         dq = deque()
@@ -30,20 +32,20 @@ def solution(m, n, h, w, drops):
             dq.append(i)
             if (dq[0] <= i - h):
                 dq.popleft()
-            if (i >= h - 1):
+            if (h - 1 <= i):
                 result[i - h + 1][j] = row_min[dq[0]][j]
     
     # print(result)
-
-    tmp = []
+    
+    tmp = [0, 0]
     tmpVal = 0
     for i in range(m - h + 1):
         for j in range(n - w + 1):
-            val = result[i][j]
-            if (val == MAX):
+            if (result[i][j] == MAX):
                 return [i, j]
-            if (tmpVal < val):
-                tmpVal = val
-                tmp = [i, j]
+            else:
+                if (tmpVal < result[i][j]):
+                    tmpVal = result[i][j]
+                    tmp = [i, j]
+    
     return tmp
-
