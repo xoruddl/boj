@@ -41,10 +41,14 @@ vector<int> solution(vector<string> genres, vector<int> plays) {
     
     for (auto & p: v){
         string g = p.first;
-        for (int i = 0; i < T[g].size(); i++) {
-            if (i < 2){
-                answer.push_back(T[g][i].second);
-            }
+        // for (int i = 0; i < T[g].size(); i++) {
+        //     if (i < 2){
+        //         answer.push_back(T[g][i].second);
+        //     }
+        // }
+        answer.push_back(T[g][0].second);
+        if (T[g].size() > 1){
+            answer.push_back(T[g][1].second);
         }
     }
     
