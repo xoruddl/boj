@@ -3,25 +3,25 @@
 #include <iostream>
 
 using namespace std;
-using ll = long long;
+typedef long long ll;
 
 bool fc(vector<int>& diffs, vector<int>& times, ll limit, ll mid){
     ll total = 0;
     ll time_prev = 0;
     
     for (int i = 0; i < diffs.size(); i++) {
-        ll gap = mid - diffs[i];
         ll time_cur = times[i];
         
-        if (gap >= 0){
+        if (mid - diffs[i] >= 0){
             total += time_cur;
         } else {
-            total += (-gap) * (time_cur + time_prev) + time_cur;
+            total += (time_cur + time_prev) * (diffs[i] - mid) + time_cur;
         }
         time_prev = time_cur;
+        
     }
     
-    cout << total << '\n';
+    // cout << total << '\n';
     if (total <= limit) {
         return true;
     } else {
@@ -29,8 +29,7 @@ bool fc(vector<int>& diffs, vector<int>& times, ll limit, ll mid){
     }
 }
 
-double solution(vector<int> diffs, vector<int> times, ll limit) {
-    
+int solution(vector<int> diffs, vector<int> times, ll limit) {
     ll l = 0;
     ll r = 1000000000000000 + 1;
     
