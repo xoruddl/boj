@@ -46,13 +46,6 @@ int bfs(int y, int x, vector<vector<int>>& land){
         }
     }
     
-    // for (int i = 0;i<n;i++){
-    //     for(int j = 0;j < m;j++){
-    //         cout << land[i][j] << " ";
-    //     }
-    //     cout << '\n';
-    // }
-    
     return area;
 }
 
@@ -73,8 +66,6 @@ int solution(vector<vector<int>> land) {
         }
     }
     
-
-    
     // 구역별 너비 계산
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
@@ -84,18 +75,6 @@ int solution(vector<vector<int>> land) {
             areaIdx += 1;
         }
     }
-//     for (auto& c: wides){
-//         cout << c << " ";
-//     }
-//     cout << '\n';
-    
-//     for (int i = 0; i < n; i++) {
-//         for (int j = 0;j < m; j++ ){
-//             cout <<  table[i][j] << " ";
-//         }
-//         cout << '\n';
-//     }
-    
     
     // 각 열 별 값 구하기
     isVArea.resize(wides.size(), false);
@@ -103,6 +82,7 @@ int solution(vector<vector<int>> land) {
     for (int j = 0; j < m; j++) {
         int temp = 0;
         
+        // 초기화할 때 i < m 으로 해서 계속 틀렸다.
         for (int i = 0; i < wides.size(); i++) {
             isVArea[i] = false;
         }
