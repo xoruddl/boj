@@ -3,7 +3,6 @@
 #include <queue>
 #include <iostream>
 #include <algorithm>
-
 using namespace std;
 
 struct P {
@@ -27,10 +26,7 @@ int solution(vector<vector<int>> jobs) {
     int n = jobs.size();
     
     sort(jobs.begin(), jobs.end());
-    
-    bool isWorking = false;
-    int endTime = 0;
-    P p;
+    P p = {};
     
     while (1) {
         
@@ -53,8 +49,8 @@ int solution(vector<vector<int>> jobs) {
             t += p.work; // 작업 완료 시간으로 이동
             
             answer += t - p.start;
-            // cout << answer << '\n';
         } else {
+            // 현재 시점에 작업할 것이 없으면 
             t = jobs[i][0];
         }
     }
