@@ -1,57 +1,58 @@
 #include <string>
 #include <vector>
 #include <queue>
-#include <iostream>
 #include <algorithm>
+
 using namespace std;
 
-struct P {
-    int num;
+struct Pr {
+    int idx;
     int start;
     int work;
-
-    bool operator > (const P& o) const {
-        if (work != o.work) return work > o.work;
-        if (start != o.start) return start > o.start;
-        return num > o.num;
+    
+    bool operator < (const Pr & o) const {
+        if (work != o.work) {
+            return work > o.work;
+        }
+        if (start != o.start) {
+            return start > o.start;
+        }
+        return idx > o.idx;
     }
 };
 
-priority_queue<P, vector<P>, greater<P>> pq;
+priority_queue<Pr> pq;
 
 int solution(vector<vector<int>> jobs) {
     int answer = 0;
-    int t = 0;
-    int i = 0;
     int n = jobs.size();
+    int jobIdx = 0; // 작업에 들어간 idx
+    bool isWorking = false;
+    int endTime = 0; // 각 작업이 끝나는 시간
     
     sort(jobs.begin(), jobs.end());
-    P p = {};
     
+    int t = 0;
     while (1) {
-        
-        if (pq.empty() && i >= n) {
-            // 남은 작업이 없으면 
+        if (pq.empty() && jobIdx == n) {
             break;
         }
-
+        
         // 특정 시간에 작업 추가
-        while (i < n && t >= jobs[i][0]) {
-            pq.push({i, jobs[i][0], jobs[i][1]});
-            i += 1;
+        while (jobIdx < n && t >= jobs[jobIdx][0]) {
+            pq.push({jobIdx, jobs[jobIdx][0], jobs[jobIdx][1]});
+            jobIdx++;
         }
         
-        // 각 시간에서 작업을 할 수 있으면
         if (!pq.empty()) {
-            p = pq.top();
+            Pr p = pq.top();
             pq.pop();
-            // 특정 시간에 처리해야할 작업이 있고 시작 시간이 됐을 때
-            t += p.work; // 작업 완료 시간으로 이동
+            
+            t += p.work;
             
             answer += t - p.start;
         } else {
-            // 현재 시점에 작업할 것이 없으면 
-            t = jobs[i][0];
+            t = jobs[jobIdx][0];
         }
     }
     
