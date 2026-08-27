@@ -1,10 +1,10 @@
 # [level 1] [1차] 비밀지도 - 17681 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/17681) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/17681?language=cpp) 
 
 ### 성능 요약
 
-메모리: 11.5 MB, 시간: 0.01 ms
+메모리: 4.76 MB, 시간: 0.02 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2026년 07월 14일 09:46:07
+2026년 08월 27일 10:23:36
 
 ### 문제 설명
 
