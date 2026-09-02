@@ -1,30 +1,20 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include <queue>
 
 using namespace std;
 
 bool visited[203];
 vector<vector<int>> graph;
+int N;
 
-void bfs(int x) {
+void dfs(int x) {
     visited[x] = true;
-    queue<int> q;
-    q.push(x);
     
-    while (!q.empty()) {
-        int cur = q.front();
-        q.pop();
-        
-        for (int i = 0; i < graph[cur].size(); i++) {
-            int num = graph[cur][i];
-            if (num == 1) {
-                if (!visited[i]) {
-                    q.push(i);
-                    visited[i] = true;
-                }
-            }
+    for (int i = 0; i < N; i++) {
+        if (graph[x][i] == 1 && !visited[i]) {
+            visited[i] = true;
+            dfs(i);
         }
     }
 }
@@ -32,11 +22,11 @@ void bfs(int x) {
 int solution(int n, vector<vector<int>> computers) {
     int answer = 0;
     graph = computers;
-
+    N = n;
     
     for (int i = 0; i < n; i++) {
         if (!visited[i]) {
-            bfs(i);
+            dfs(i);
             answer++;
         }
     }
