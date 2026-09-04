@@ -7,22 +7,20 @@ using namespace std;
 multiset<int> ms;
 
 vector<int> solution(vector<string> operations) {
-    int n = operations.size();
+    vector<int> answer;
     
-    for (int i = 0; i < n; i++) {
-        string op = operations[i];
-        char com = op[0];
+    for (auto op: operations) {
         int num = stoi(op.substr(2));
         
-        if (com == 'I') {
+        if (op[0] == 'I'){
             ms.insert(num);
-        } else {
-            if (ms.empty()) {
-                continue;
-            }
+        }
+        if (op[0] == 'D') {
+            if (ms.empty()) continue;
             if (num == -1) {
                 ms.erase(ms.begin());
-            } else {
+            }
+            if (num == 1) {
                 ms.erase(--ms.end());
             }
         }
