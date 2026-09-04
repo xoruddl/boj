@@ -5,12 +5,12 @@
 
 using namespace std;
 
-struct Pr {
+struct P {
     int idx;
     int start;
     int work;
     
-    bool operator < (const Pr & o) const {
+    bool operator < (const P& o) const {
         if (work != o.work) {
             return work > o.work;
         }
@@ -21,41 +21,38 @@ struct Pr {
     }
 };
 
-priority_queue<Pr> pq;
+priority_queue<P> pq;
+
 
 int solution(vector<vector<int>> jobs) {
     int answer = 0;
     int n = jobs.size();
-    int jobIdx = 0; // 작업에 들어간 idx
-    bool isWorking = false;
-    int endTime = 0; // 각 작업이 끝나는 시간
+    int i = 0;
+    int time = 0;
     
     sort(jobs.begin(), jobs.end());
     
-    int t = 0;
     while (1) {
-        if (pq.empty() && jobIdx == n) {
+        if (i >= n && pq.empty()) {
             break;
         }
         
-        // 특정 시간에 작업 추가
-        while (jobIdx < n && t >= jobs[jobIdx][0]) {
-            pq.push({jobIdx, jobs[jobIdx][0], jobs[jobIdx][1]});
-            jobIdx++;
+        while (i < n && time >= jobs[i][0]) {
+            pq.push({i, jobs[i][0], jobs[i][1]});
+            i++;
         }
         
         if (!pq.empty()) {
-            Pr p = pq.top();
+            P p = pq.top();
             pq.pop();
             
-            t += p.work;
+            time += p.work;
             
-            answer += t - p.start;
+            answer += time - p.start;
         } else {
-            t = jobs[jobIdx][0];
+            time = jobs[i][0];
         }
     }
     
-    answer = answer / n;
-    return answer;
+    return answer / n;
 }
