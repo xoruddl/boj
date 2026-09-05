@@ -1,41 +1,49 @@
-#include <iostream>
+#include <string>
 #include <vector>
+#include <iostream>
+
 using namespace std;
 
-vector<vector<bool>> graph;
+#define MAX 987654321
 
-int solution(int n, vector<vector<int>> results) {
-    int answer = 0;
+vector<vector<int>> graph;
+int N;
+int answer = 0;
 
-    int m = results.size();
-
-    graph.assign(n + 1, vector<bool>(n + 1, false));
-    for (int i = 0; i < m; i++) {
-        int a = results[i][0];
-        int b = results[i][1];
-        graph[a][b] = true;
-    }
-
-    for (int k = 1; k <= n; k++) {
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= n; j++) {
-                if (graph[i][k] && graph[k][j]) {
-                    graph[i][j] = true;
+void fc() { // 플로이드 워셜
+    
+    for (int k = 1; k <= N; k++) {
+        for (int i = 1; i <= N; i++) {
+            for (int j = 1; j <= N; j++) {
+                if (graph[i][k] == 1 && graph[k][j] == 1) {
+                    graph[i][j] = 1;
                 }
             }
         }
     }
-
-    for (int i = 1; i <= n; i++) {
+    
+    for (int i = 1; i <= N; i++) {
         int cnt = 0;
-        for (int j = 1; j <= n; j++) {
-            if (graph[i][j] || graph[j][i]) {
+        for (int j = 1; j <= N; j++) {
+            if (graph[i][j] == 1 || graph[j][i] == 1) {
                 cnt++;
             }
         }
-        if (cnt == n - 1) {
+        if (cnt == N - 1) {
             answer++;
         }
     }
+}
+
+int solution(int n, vector<vector<int>> results) {
+    N = n;
+    graph.assign(n + 1, vector<int>(n + 1, MAX));
+    
+    for (auto r: results) {
+        graph[r[0]][r[1]] = 1;
+    }
+    
+    fc();
+    
     return answer;
 }
