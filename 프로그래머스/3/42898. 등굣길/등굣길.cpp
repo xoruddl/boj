@@ -8,11 +8,9 @@ using namespace std;
 typedef long long ll;
 
 int dp[103][103];
-vector<vector<int>> water;
 
 int solution(int m, int n, vector<vector<int>> puddles) {
-    water = puddles;
-    int answer = 0;
+
     dp[1][1] = 1;
     
     for (auto p : puddles) {
