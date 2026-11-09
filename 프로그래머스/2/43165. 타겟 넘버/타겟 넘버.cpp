@@ -1,32 +1,33 @@
 #include <string>
 #include <vector>
-
+#include <iostream>
+#include <algorithm>
 using namespace std;
 
-int T;
-int answer = 0;
+int N, Target;
+int ans;
+vector<int> Numbers;
 
-void dfs(int idx, int sum, const vector<int>& numbers) {
-    
-    if (idx == numbers.size()) {
-        if (sum == T) {
-            answer++;
+void dfs(int idx, int sum) {
+    if (idx == N) {
+        if (sum == Target) {
+            ans++;
         }
         return;
     }
     
-    // +
-    dfs(idx + 1, sum + numbers[idx], numbers);
+    // 더하기
+    dfs(idx + 1, sum + Numbers[idx]);
     
-    // -
-    dfs(idx + 1, sum - numbers[idx], numbers);
-
+    // 빼기
+    dfs(idx + 1, sum - Numbers[idx]);
 }
 
 int solution(vector<int> numbers, int target) {
-    T = target;
+    N = numbers.size();
+    Numbers = numbers;
+    Target = target;
+    dfs(0, 0);
     
-    dfs(0, 0, numbers);
-    
-    return answer;
+    return ans;
 }
