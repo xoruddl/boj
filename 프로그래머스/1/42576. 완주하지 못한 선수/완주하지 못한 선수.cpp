@@ -1,43 +1,26 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include <unordered_map>
-
+#include <algorithm>
+#include <map>
 using namespace std;
 
 string solution(vector<string> participant, vector<string> completion) {
-    string answer = "";
     
-    unordered_map<string, int> m;
-    for (auto a: participant) {
-        if (m.end() == m.find(a)) {
-            m.insert(make_pair(a, 1));
-        }
-        else {
-            m[a]++;
-        }
+    int N = participant.size();
+    
+    map<string, int> mp;
+    for (int i = 0; i < N - 1; i++) {
+        mp[completion[i]] += 1;
     }
-    
-    for (auto a : completion) {
-        m[a]--;
-    }
-    
-    for (auto a : participant) {
-        if (m[a] > 0) {
-            answer = a;
-            break;
+    for (int i = 0; i < N; i++) {
+        if (mp.find(participant[i]) != mp.end()) {
+            mp[participant[i]] -= 1;
+            if (mp[participant[i]] == 0) {
+                mp.erase(participant[i]);
+            }
+        } else {
+            return participant[i];
         }
     }
-    
-    return answer;
-}
-
-int main() {
-    ios::sync_with_stdio(0); cin.tie(0);
-    
-    vector<string> p = {"leo", "kiki", "eden"};
-    vector<string> c = {"eden", "kiki"};
-    
-    cout << solution(p, c);
-    return 0;
 }
