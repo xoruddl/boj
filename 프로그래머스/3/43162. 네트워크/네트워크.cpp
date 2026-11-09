@@ -1,35 +1,44 @@
 #include <string>
 #include <vector>
 #include <iostream>
-
+#include <algorithm>
+#include <queue>
 using namespace std;
 
-bool visited[203];
-vector<vector<int>> graph;
-int N;
+int N, ans;
+bool visited[202];
+vector<vector<int>> Computers;
 
-void dfs(int x) {
-    visited[x] = true;
+void bfs(int idx) {
+    visited[idx] = true;
     
-    for (int i = 0; i < N; i++) {
-        if (graph[x][i] == 1 && !visited[i]) {
-            visited[i] = true;
-            dfs(i);
+    queue<int> q;
+    q.push(idx);
+    
+    while (!q.empty()) {
+        int cur = q.front();
+        q.pop();
+        
+        for (int i = 0; i < N; i++) {
+            if (visited[i]) continue;
+            if (Computers[cur][i] == 1) {
+                visited[i] = true;
+                q.push(i);
+            }
         }
     }
 }
 
 int solution(int n, vector<vector<int>> computers) {
-    int answer = 0;
-    graph = computers;
     N = n;
+    Computers = computers;
     
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < N; i++) {
         if (!visited[i]) {
-            dfs(i);
-            answer++;
+            bfs(i);
+            ans++;
         }
     }
     
-    return answer;
+    return ans;
 }
